@@ -20,8 +20,14 @@ public class Structure : MonoBehaviour
         {
             int layer = i / layerWidth;
             int index = i % layerWidth;
+            float xPos = index - layerWidth / 2;
 
-            Vector3 position = new Vector3(index, layer, 0) * 1.01f;
+            if (layer % 2 == 0)
+            {
+                xPos += 0.5f;
+            }
+
+            Vector3 position = new Vector3(xPos, layer, 0) * 1.01f;
 
             Quaternion rotation = Quaternion.identity;
             Instantiate(Cube, position, rotation, transform);
@@ -48,10 +54,5 @@ public class Structure : MonoBehaviour
                         this.transform
                         );
         }
-    }
-
-    void Update()
-    {
-
     }
 }
