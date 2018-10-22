@@ -27,5 +27,6 @@ public class CubeScript : MonoBehaviour
 
         transform.position += delta * direction;
         transform.Rotate(0, direction * 1, 0);
+        //Change
     }
 }
