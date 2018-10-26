@@ -4,13 +4,16 @@ using UnityEngine;
 
 public class Structure : MonoBehaviour
 {
+    public GUISkin skin;
     public GameObject Cube;
     Vector3 _size;
+    List<GameObject> _blocks = new List<GameObject>();
+    int _count = 54;
+    string _text = "";
 
     void Start()
     {
         Random.InitState(42);
-        Physics.autoSimulation = false;
         // var collider = Cube.GetComponentInChildren<BoxCollider>();
         //_size = collider.bounds.size;
         _size = new Vector3(0.125f, 0.075f, 0.375f);
@@ -21,7 +24,7 @@ public class Structure : MonoBehaviour
     {
         int layerWidth = 3;
 
-        for (int i = 0; i < 54; i++)
+        for (int i = 0; i < _count; i++)
         {
             int layer = i / layerWidth;
             int index = i % layerWidth;
@@ -35,8 +38,42 @@ public class Structure : MonoBehaviour
             if (layer % 2 == 0)
                 block.transform.RotateAround(Vector3.zero, Vector3.up, 90);
 
-            yield return new WaitForSeconds(0.1f);
+            _blocks.Add(block);
+            yield return new WaitForSeconds(0.01f);
         }
+
+        StartCoroutine(RemoveBlocks());
+    }
+
+    void MoveBlock(GameObject block)
+    {
+        int layerWidth = 3;
+        int layer = _count / layerWidth;
+        int index = _count % layerWidth;
+        float xPos = (index - 1) * _size.x;
+        float yPos = layer * _size.y;
+
+        Vector3 position = new Vector3(xPos, yPos, 0) * 1.01f;
+        Quaternion rotation = Quaternion.identity;
+        block.transform.position = position;
+        block.transform.rotation = rotation;
+
+        if (layer % 2 == 0)
+            block.transform.RotateAround(Vector3.zero, Vector3.up, 90);
+        _count++;
+    }
+
+    IEnumerator RemoveBlocks()
+    {
+        for (int i = 0; i < 20; i++)
+        {
+            yield return new WaitForSeconds(2f);
+            int index = Random.Range(0, _blocks.Count);
+            var block = _blocks[index];
+            MoveBlock(block);
+            //_blocks.RemoveAt(index);
+        }
+
     }
 
     void CreateWall()
@@ -75,7 +112,7 @@ public class Structure : MonoBehaviour
 
             Quaternion rotation = Quaternion.Euler(0, i * 8, 0);
 
-            var goA = Instantiate(
+             Instantiate(
                         Cube,
                         position,
                         rotation,
@@ -84,11 +121,32 @@ public class Structure : MonoBehaviour
         }
     }
 
+    private void Update()
+    {
+        Vector3 sumVelocity = Vector3.zero;
+
+        foreach(var block in _blocks)
+        {
+            var rb = block.GetComponentInChildren<Rigidbody>();
+            sumVelocity += rb.velocity;
+        }
+
+        if(sumVelocity.magnitude > 20)
+        {
+            _text = "You lost";
+            Time.timeScale = 0.05f;
+        }
+    }
+
     private void OnGUI()
     {
+        GUI.skin = skin;
+
         if (GUI.Button(new Rect(20, 20, 100, 40), "Enable physics"))
         {
             Physics.autoSimulation = true;
         }
+
+        GUI.Label(new Rect(100, 100, 200, 50), _text);
     }
 }

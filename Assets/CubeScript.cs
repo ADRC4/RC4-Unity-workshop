@@ -16,9 +16,9 @@ public class CubeScript : MonoBehaviour
 
     void OnMouseDown()
     {
-        var rb = this.GetComponent<Rigidbody>();
-        var force = Vector3.up * 50;
-
-        rb.AddForce(force, ForceMode.Impulse);
+        //var rb = this.GetComponent<Rigidbody>();
+        //var force = Vector3.up * 50;
+        //rb.AddForce(force, ForceMode.Impulse);
+        Destroy(this.gameObject);
     }
 }
