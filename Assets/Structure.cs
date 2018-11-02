@@ -14,9 +14,8 @@ public class Structure : MonoBehaviour
     void Start()
     {
         Random.InitState(42);
-        // var collider = Cube.GetComponentInChildren<BoxCollider>();
-        //_size = collider.bounds.size;
-        _size = new Vector3(0.125f, 0.075f, 0.375f);
+        var collider = Cube.GetComponentInChildren<BoxCollider>();
+        _size = collider.size;
         StartCoroutine(CreateJengaTower());
     }
 
@@ -112,12 +111,12 @@ public class Structure : MonoBehaviour
 
             Quaternion rotation = Quaternion.Euler(0, i * 8, 0);
 
-             Instantiate(
-                        Cube,
-                        position,
-                        rotation,
-                        this.transform
-                        );
+            Instantiate(
+                       Cube,
+                       position,
+                       rotation,
+                       this.transform
+                       );
         }
     }
 
@@ -125,13 +124,13 @@ public class Structure : MonoBehaviour
     {
         Vector3 sumVelocity = Vector3.zero;
 
-        foreach(var block in _blocks)
+        foreach (var block in _blocks)
         {
             var rb = block.GetComponentInChildren<Rigidbody>();
             sumVelocity += rb.velocity;
         }
 
-        if(sumVelocity.magnitude > 20)
+        if (sumVelocity.magnitude > 20)
         {
             _text = "You lost";
             Time.timeScale = 0.05f;
@@ -142,9 +141,9 @@ public class Structure : MonoBehaviour
     {
         GUI.skin = skin;
 
-        if (GUI.Button(new Rect(20, 20, 100, 40), "Enable physics"))
+        if (GUI.Button(new Rect(20, 20, 100, 40), "Toggle physics"))
         {
-            Physics.autoSimulation = true;
+            Physics.autoSimulation = !Physics.autoSimulation;
         }
 
         GUI.Label(new Rect(100, 100, 200, 50), _text);

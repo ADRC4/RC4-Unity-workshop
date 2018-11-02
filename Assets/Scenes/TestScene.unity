@@ -140,7 +140,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 16a4fc43571dc8e48ac47aa43ebdd1ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  Cube: {fileID: 1726440889695804, guid: c11948b780a53d944b51bcc8789eb55f, type: 2}
+  skin: {fileID: 11400000, guid: 3cf47e9bc423ed04dbc5f3957fc2c463, type: 2}
+  Cube: {fileID: 1521220889539016, guid: c11948b780a53d944b51bcc8789eb55f, type: 2}
 --- !u!4 &379624070
 Transform:
   m_ObjectHideFlags: 0
@@ -228,7 +229,7 @@ Transform:
   m_PrefabInternal: {fileID: 0}
   m_GameObject: {fileID: 534669902}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 4, z: -14}
+  m_LocalPosition: {x: 0, y: 1, z: -2}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
