@@ -6,30 +6,25 @@ public class OOPLearning : MonoBehaviour
 {
     void Start()
     {
-        // value: int, float, double, bool, Vector3, Vector2, Rect, Bounds
-        // referece : string, GameObject, Components, MonoBehaviour, RigidBody, MeshRenderer, Material, Mesh
+        //var list = new List<int>();
+        //for (int i = 0; i < 100; i++)
+        //{
+        //    list.Add(i * 10);
+        //}
 
-        var animals = new List<Animal>();
-        animals.Add(new Dog());
-        animals.Add(new Cow());
-        animals.Add(new Human());
-        animals.Add(new Cat());
+        //var number = list[90];
 
-        var dog = new Dog();
-        dog.Legs -= 1;
-        dog.Legs -= 1;
-        dog.Legs -= 1;
-        dog.Legs -= 1;
-        dog.Legs -= 1;
+        //foreach (var num in list)
+        //    if (num == 100) 
 
-        Debug.Log(dog.Legs);
+        var sounds = new Dictionary<string, Animal>();
+        sounds.Add("Bark", new Dog());
+        sounds.Add("Miao", new Cat());
+        sounds.Add("Hello", new Human());
 
-        //foreach (var animal in animals)
-        //    Debug.Log(animal.Sound);
+        var animal = sounds["Miao"];
+        Debug.Log(animal.Sound);
 
-        var sum = MyMath.Add(10, 5);
-        var sine = Mathf.Sin(30);
-        var myDog = Animal.MakeDog();
     }
 }
 
@@ -45,7 +40,7 @@ static class MyMath
 abstract class Animal
 {
 
-   public static Animal MakeDog()
+    public static Animal MakeDog()
     {
         return new Dog();
     }
@@ -108,7 +103,7 @@ class Dog : Animal
 
 class Cat : Animal
 {
-    public Cat() : base(4, "Miao")
+    public Cat() : base(4, "Miaooooo")
     {
 
     }
